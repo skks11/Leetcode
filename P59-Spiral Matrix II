@@ -1,0 +1,48 @@
+class Solution(object):
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        count=1
+        res=[[0 for i in range(n)]for j in range(n)]
+        i=0
+        j=0
+        flag=0       #0:-> 1:down 2:<- 3:up
+        while count<=n**2:
+            if flag==0:
+                while j<=n-1 and res[i][j]==0:
+                    res[i][j]=count
+                    j+=1
+                    count+=1
+                flag=1
+                j-=1
+                i+=1
+                
+            if flag==1:
+                while i<=n-1 and res[i][j]==0:
+                    res[i][j]=count
+                    i+=1
+                    count+=1
+                flag=2
+                i-=1
+                j-=1
+                
+            if flag==2:
+                while i>=0 and res[i][j]==0:
+                    res[i][j]=count
+                    j-=1
+                    count+=1
+                flag=3
+                j+=1
+                i-=1
+                
+            if flag==3:
+                while j>=0 and res[i][j]==0:
+                    res[i][j]=count
+                    i-=1
+                    count+=1
+                flag=0
+                i+=1
+                j+=1
+        return res
